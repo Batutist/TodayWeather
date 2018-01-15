@@ -35,18 +35,27 @@ class TodayWeatherViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // get data from server and 
+        // get data from server and save to realm DB
+        // функция получает данные с сервера и созраняет в БД
         manager.getWeatherData(city: cityName)
+        // realm notification watch for values, that change in DB
+        // нотификация следит за изменениями в БД и выводит их в UI
         updateUI()
     }
     
     deinit {
         notificationToken?.invalidate()
     }
-    
+    //
     func changeUILabels() {
+        // get current weather from DB
         let currentWeather = realmDataManager.getCurrentWeatherFromDB()
+        // deactivate activity indicator when all data received
+        // прячем activity indicator когда все все данные получены
         toggleActivityIndicator(on: false)
+        
+        // show received values in UI
+        // выводим полученные значения в пользовательский интерфейс
         weatherIcon.image = UIImage(named: currentWeather.cityWeatherIcon)
         temperatureLabel.text = currentWeather.temperatureString
         weatherDescriptionLabel.text = currentWeather.cityWeatherDescription
@@ -57,9 +66,10 @@ class TodayWeatherViewController: UIViewController {
         humidityLabel.text = currentWeather.cityHumidityString
 
     }
-    
+    // realm notification
     func updateUI() {
         
+        // observe for changes in results
         let results = realm.objects(CurrentWeatherClass.self)
         
         notificationToken = results.observe { [weak self] (changes: RealmCollectionChange) in
@@ -75,17 +85,21 @@ class TodayWeatherViewController: UIViewController {
         }
     }
     
+    
     func toggleActivityIndicator(on: Bool) {
         refreshButton.isHidden = on
         
         if on {
             activityIndicator.startAnimating()
+            refreshButton.isEnabled = false
         } else {
             activityIndicator.stopAnimating()
+            refreshButton.isEnabled = true
         }
     }
     
     @IBAction func refreshButtonTapped(_ sender: UIButton) {
+        // when user tapp on refresh button, activity indicator switch on and get new weather data from server. And then update UI.
         toggleActivityIndicator(on: true)
         manager.getWeatherData(city: cityName)
         updateUI()

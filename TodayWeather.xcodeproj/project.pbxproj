@@ -22,6 +22,7 @@
 		A57954AD2007956800C46E58 /* TodayWeather.swift in Sources */ = {isa = PBXBuildFile; fileRef = A57954AC2007956800C46E58 /* TodayWeather.swift */; };
 		A5D1BC352008EDFE0081C593 /* CurrentWeatherClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5D1BC342008EDFE0081C593 /* CurrentWeatherClass.swift */; };
 		A5D1BC372008F4B80081C593 /* RealmDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5D1BC362008F4B80081C593 /* RealmDataManager.swift */; };
+		A5F6DE47200C9E5400E2445A /* Protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5F6DE46200C9E5400E2445A /* Protocols.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -43,6 +44,7 @@
 		A57954AC2007956800C46E58 /* TodayWeather.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayWeather.swift; sourceTree = "<group>"; };
 		A5D1BC342008EDFE0081C593 /* CurrentWeatherClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentWeatherClass.swift; sourceTree = "<group>"; };
 		A5D1BC362008F4B80081C593 /* RealmDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmDataManager.swift; sourceTree = "<group>"; };
+		A5F6DE46200C9E5400E2445A /* Protocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Protocols.swift; sourceTree = "<group>"; };
 		FAEA1670AD5C0FBE1EC83420 /* Pods-TodayWeather.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TodayWeather.release.xcconfig"; path = "Pods/Target Support Files/Pods-TodayWeather/Pods-TodayWeather.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -63,20 +65,20 @@
 			children = (
 				A55F30CE20088D1800E51311 /* CurrentWeather.swift */,
 				A5D1BC342008EDFE0081C593 /* CurrentWeatherClass.swift */,
-				A55F30D020088EB000E51311 /* WeatherIconManager.swift */,
 			);
 			path = "Weather model";
 			sourceTree = "<group>";
 		};
-		A55F30D92008DC7B00E51311 /* swiftbook */ = {
+		A55F30D92008DC7B00E51311 /* ------- */ = {
 			isa = PBXGroup;
 			children = (
 				A57954AC2007956800C46E58 /* TodayWeather.swift */,
 				A55F30D220089ECE00E51311 /* APIManager.swift */,
 				A55F30D72008AA6000E51311 /* APIWeatherManager.swift */,
 				A55F30D42008A20B00E51311 /* ErrorManager.swift */,
+				A55F30D020088EB000E51311 /* WeatherIconManager.swift */,
 			);
-			path = swiftbook;
+			path = "-------";
 			sourceTree = "<group>";
 		};
 		A579548B200793DB00C46E58 = {
@@ -100,18 +102,51 @@
 		A5795496200793DB00C46E58 /* TodayWeather */ = {
 			isa = PBXGroup;
 			children = (
-				A5795497200793DB00C46E58 /* AppDelegate.swift */,
-				A5795499200793DB00C46E58 /* TodayWeatherViewController.swift */,
-				A55F30DA2008DCF600E51311 /* DataManager.swift */,
-				A5D1BC362008F4B80081C593 /* RealmDataManager.swift */,
-				A55F30D62008A23300E51311 /* Weather model */,
 				A579549B200793DB00C46E58 /* Main.storyboard */,
-				A57954A1200793DB00C46E58 /* Assets.xcassets */,
+				A5F6DE49200CA35700E2445A /* Controllers */,
+				A5F6DE48200CA33B00E2445A /* Managers */,
+				A55F30D62008A23300E51311 /* Weather model */,
+				A5F6DE4A200CA36500E2445A /* Resourse */,
 				A57954A3200793DB00C46E58 /* LaunchScreen.storyboard */,
 				A57954A6200793DB00C46E58 /* Info.plist */,
-				A55F30D92008DC7B00E51311 /* swiftbook */,
+				A5795497200793DB00C46E58 /* AppDelegate.swift */,
+				A5F6DE46200C9E5400E2445A /* Protocols.swift */,
+				A55F30D92008DC7B00E51311 /* ------- */,
 			);
 			path = TodayWeather;
+			sourceTree = "<group>";
+		};
+		A5F6DE48200CA33B00E2445A /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+				A55F30DA2008DCF600E51311 /* DataManager.swift */,
+				A5D1BC362008F4B80081C593 /* RealmDataManager.swift */,
+			);
+			path = Managers;
+			sourceTree = "<group>";
+		};
+		A5F6DE49200CA35700E2445A /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				A5795499200793DB00C46E58 /* TodayWeatherViewController.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		A5F6DE4A200CA36500E2445A /* Resourse */ = {
+			isa = PBXGroup;
+			children = (
+				A5F6DE4B200CA37000E2445A /* Images */,
+			);
+			path = Resourse;
+			sourceTree = "<group>";
+		};
+		A5F6DE4B200CA37000E2445A /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				A57954A1200793DB00C46E58 /* Assets.xcassets */,
+			);
+			path = Images;
 			sourceTree = "<group>";
 		};
 		A63C15B9BDD1AD3C5A9E97A0 /* Frameworks */ = {
@@ -269,6 +304,7 @@
 				A55F30D320089ECE00E51311 /* APIManager.swift in Sources */,
 				A579549A200793DB00C46E58 /* TodayWeatherViewController.swift in Sources */,
 				A55F30D52008A20B00E51311 /* ErrorManager.swift in Sources */,
+				A5F6DE47200C9E5400E2445A /* Protocols.swift in Sources */,
 				A5D1BC352008EDFE0081C593 /* CurrentWeatherClass.swift in Sources */,
 				A57954AD2007956800C46E58 /* TodayWeather.swift in Sources */,
 				A5D1BC372008F4B80081C593 /* RealmDataManager.swift in Sources */,

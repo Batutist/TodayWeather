@@ -27,3 +27,23 @@ class CurrentWeatherClass: Object {
     }
     
 }
+
+
+extension CurrentWeatherClass: ManagedObjectProtocol {
+    func toEntity() -> CurrentWeather? {
+        
+        let currentWeather = CurrentWeather(cityName: cityName,
+                                            cityCountry: cityCountry,
+                                            cityTemperature: cityTemperature,
+                                            cityWindSpeed: cityWindSpeed,
+                                            cityPressure: cityPressure,
+                                            cityHumidity: cityHumidity,
+                                            cityTemperatureMin: cityTemperatureMin,
+                                            cityTemperatureMax: cityTemperatureMax,
+                                            cityWeatherDescription: cityWeatherDescription,
+                                            cityWeatherIcon: cityWeatherIcon)
+        
+        return currentWeather
+    }
+}
+

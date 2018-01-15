@@ -7,3 +7,9 @@
 //
 
 import Foundation
+
+
+protocol ManagedObjectProtocol {
+    associatedtype Entity
+    func toEntity() -> Entity?
+}
