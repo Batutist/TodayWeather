@@ -12,6 +12,7 @@ import RealmSwift
 class TodayWeatherViewController: UIViewController {
     var notificationToken: NotificationToken? = nil
 
+    
     @IBOutlet weak var weatherIcon: UIImageView!
     @IBOutlet weak var temperatureLabel: UILabel!
     @IBOutlet weak var weatherDescriptionLabel: UILabel!
@@ -34,7 +35,7 @@ class TodayWeatherViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        
+        // get data from server and 
         manager.getWeatherData(city: cityName)
         updateUI()
     }

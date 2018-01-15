@@ -15,6 +15,8 @@ class RealmDataManager {
         do {
             let realm = try Realm()
             let currentWeatherClass = realm.objects(CurrentWeatherClass.self)
+            
+            
             var currentWeather = CurrentWeather()
 
             for value in currentWeatherClass {
@@ -29,7 +31,7 @@ class RealmDataManager {
                 currentWeather.cityWeatherDescription = value.cityWeatherDescription
                 currentWeather.cityWeatherIcon = value.cityWeatherIcon
             }
-            
+
             return currentWeather
         } catch (let error as NSError) {
             fatalError("Error opening realm: \(error.localizedDescription)")

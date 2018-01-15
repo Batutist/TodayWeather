@@ -13,6 +13,8 @@ import RealmSwift
 
 public let realm = try! Realm()
 
+
+
 class DataManager {
     
     func getWeatherData(city: String) {
