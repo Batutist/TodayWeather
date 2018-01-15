@@ -10,7 +10,7 @@ import Foundation
 import RealmSwift
 
 class RealmDataManager {
-    
+    // get current weather from DB
     func getCurrentWeatherFromDB() -> CurrentWeather {
         do {
             let realm = try Realm()

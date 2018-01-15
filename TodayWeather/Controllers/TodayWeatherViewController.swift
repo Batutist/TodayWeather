@@ -40,7 +40,7 @@ class TodayWeatherViewController: UIViewController {
         manager.getWeatherData(city: cityName)
         // realm notification watch for values, that change in DB
         // нотификация следит за изменениями в БД и выводит их в UI
-        updateUI()
+//        updateUI()
     }
     
     deinit {
@@ -68,7 +68,7 @@ class TodayWeatherViewController: UIViewController {
     }
     // realm notification
     func updateUI() {
-        
+        let realm = try! Realm()
         // observe for changes in results
         let results = realm.objects(CurrentWeatherClass.self)
         

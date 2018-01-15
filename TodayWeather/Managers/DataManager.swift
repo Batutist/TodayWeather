@@ -11,14 +11,14 @@ import Alamofire
 import SwiftyJSON
 import RealmSwift
 
-public let realm = try! Realm()
+
 
 
 
 class DataManager {
     
     func getWeatherData(city: String) {
-        
+        let realm = try! Realm()
         let url = "https://api.openweathermap.org/data/2.5/weather"
         let param =  ["q": city, "units": "metric", "appid": "0d56898a0da8944be0e2dff08367ac8c"]
         var currentWeather = CurrentWeather()
@@ -26,6 +26,7 @@ class DataManager {
             switch response.result {
             case .success(let value):
                 let json = JSON(value)
+                
                 currentWeather = CurrentWeather(
                     cityName: json["name"].stringValue,
                     cityCountry: json["sys"]["country"].stringValue,
@@ -38,22 +39,30 @@ class DataManager {
                     cityWeatherDescription: json["weather"][0]["description"].stringValue,
                     cityWeatherIcon: json["weather"][0]["icon"].stringValue)
                 
-                let currentWeatherClass = CurrentWeatherClass()
-                
-                
-                self.fromStructToClass(currentWeather: currentWeather, currentWeatherClass: currentWeatherClass)
-                print("Current weather class: \(currentWeatherClass)")
-                
                 do {
-                    try realm.write {
-                        realm.add(currentWeatherClass, update: true)
-                        print("Success")
-                        print()
-                        print(Realm.Configuration.defaultConfiguration.fileURL!)
-                    }
-                } catch(let error) {
-                    print(error.localizedDescription)
+                    let container = try Container()
+                    try container.write({ (transaction) in
+                        transaction.add(currentWeather, update: true)
+                    })
+                    print(Realm.Configuration.defaultConfiguration.fileURL!)
+                } catch let error as NSError {
+                    print("Error is: \(error.localizedDescription)")
                 }
+                
+                
+                
+                
+                //                do {
+                //                    try realm.write {
+                ////                        guard let currentWeatherClass = currentWeather.toManagedObject(object: realm) else { print("nil")
+                //                            return }
+                //                        realm.add(currentWeatherClass, update: true)
+                //                        print("Success")
+                //                        print(Realm.Configuration.defaultConfiguration.fileURL!)
+                //                    }
+                //                } catch(let error) {
+                //                    print(error.localizedDescription)
+                //                }
                 
                 print("JSON: \(currentWeather)")
             case .failure(let error):
@@ -62,20 +71,20 @@ class DataManager {
         }
     }
     
-    private func fromStructToClass(currentWeather: CurrentWeather, currentWeatherClass: CurrentWeatherClass) {
-        
-        currentWeatherClass.cityName = currentWeather.cityName
-        currentWeatherClass.cityCountry = currentWeather.cityCountry
-        currentWeatherClass.cityTemperature = currentWeather.cityTemperature
-        currentWeatherClass.cityWindSpeed = currentWeather.cityWindSpeed
-        currentWeatherClass.cityPressure = currentWeather.cityPressure
-        currentWeatherClass.cityHumidity = currentWeather.cityHumidity
-        currentWeatherClass.cityTemperatureMin = currentWeather.cityTemperatureMin
-        currentWeatherClass.cityTemperatureMax = currentWeather.cityTemperatureMax
-        currentWeatherClass.cityWeatherDescription = currentWeather.cityWeatherDescription
-        currentWeatherClass.cityWeatherIcon = currentWeather.cityWeatherIcon
-        
-    }
+    //    private func fromStructToClass(currentWeather: CurrentWeather, currentWeatherClass: CurrentWeatherClass) {
+    //
+    //        currentWeatherClass.cityName = currentWeather.cityName
+    //        currentWeatherClass.cityCountry = currentWeather.cityCountry
+    //        currentWeatherClass.cityTemperature = currentWeather.cityTemperature
+    //        currentWeatherClass.cityWindSpeed = currentWeather.cityWindSpeed
+    //        currentWeatherClass.cityPressure = currentWeather.cityPressure
+    //        currentWeatherClass.cityHumidity = currentWeather.cityHumidity
+    //        currentWeatherClass.cityTemperatureMin = currentWeather.cityTemperatureMin
+    //        currentWeatherClass.cityTemperatureMax = currentWeather.cityTemperatureMax
+    //        currentWeatherClass.cityWeatherDescription = currentWeather.cityWeatherDescription
+    //        currentWeatherClass.cityWeatherIcon = currentWeather.cityWeatherIcon
+    //
+    //    }
 }
 
 
