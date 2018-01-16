@@ -28,4 +28,11 @@ public final class Container {
             try block(transaction)
         }
     }
+    
+    public func values<T: Persistable> (_ type: T.Type) -> FetchedResults<T> {
+        
+        let results = realm.objects(T.ManagedObject.self)
+        
+        return FetchedResults(results: results)
+    }
 }

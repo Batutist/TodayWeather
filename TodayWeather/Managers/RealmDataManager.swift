@@ -37,4 +37,15 @@ class RealmDataManager {
             fatalError("Error opening realm: \(error.localizedDescription)")
         }
     }
+    
+    func getCurrentWeatherFromRealm() -> FetchedResults<CurrentWeather> {
+
+        let realm = try! Realm()
+        
+        let container = Container(realm: realm)
+        let currentWeather = container.values(CurrentWeather.self)
+        
+        return currentWeather
+    }
+    
 }

@@ -28,7 +28,8 @@ class TodayWeatherViewController: UIViewController {
 
     
     let cityName = "Taganrog"
-    lazy var manager = DataManager()
+    var units = "metric"
+    lazy var manager = DataManagerSingleton.shared
     lazy var currentWeather = CurrentWeather()
     lazy var realmDataManager = RealmDataManager()
     
@@ -37,10 +38,11 @@ class TodayWeatherViewController: UIViewController {
 
         // get data from server and save to realm DB
         // функция получает данные с сервера и созраняет в БД
-        manager.getWeatherData(city: cityName)
+        manager.getWeatherData(city: cityName, units: units)
+
         // realm notification watch for values, that change in DB
         // нотификация следит за изменениями в БД и выводит их в UI
-//        updateUI()
+        updateUI()
     }
     
     deinit {
@@ -48,20 +50,33 @@ class TodayWeatherViewController: UIViewController {
     }
     //
     func changeUILabels() {
+        
         // get current weather from DB
-        let currentWeather = realmDataManager.getCurrentWeatherFromDB()
+        let currentWeather = realmDataManager.getCurrentWeatherFromRealm().value(at: 0)
+        print("Текущая погода: \(currentWeather)")
         // deactivate activity indicator when all data received
         // прячем activity indicator когда все все данные получены
         toggleActivityIndicator(on: false)
         
+        if units == "metric" {
+            temperatureLabel.text = currentWeather.temperatureMetricString
+            temperatureMinLabel.text = currentWeather.cityTemperatureMinMetricString
+            temperatureMaxLabel.text = currentWeather.cityTemperatureMaxMetricString
+            windSpeedLabel.text = currentWeather.cityWindSpeedMetricString
+        } else {
+            temperatureLabel.text = currentWeather.temperatureImperialString
+            temperatureMinLabel.text = currentWeather.cityTemperatureMinImperialString
+            temperatureMaxLabel.text = currentWeather.cityTemperatureMaxImperialString
+            windSpeedLabel.text = currentWeather.cityWindSpeedImperialString
+        }
+        
+
         // show received values in UI
         // выводим полученные значения в пользовательский интерфейс
         weatherIcon.image = UIImage(named: currentWeather.cityWeatherIcon)
-        temperatureLabel.text = currentWeather.temperatureString
+
         weatherDescriptionLabel.text = currentWeather.cityWeatherDescription
-        temperatureMinLabel.text = currentWeather.cityTemperatureMinString
-        temperatureMaxLabel.text = currentWeather.cityTemperatureMaxString
-        windSpeedLabel.text = currentWeather.cityWindSpeedString
+
         pressureLabel.text = currentWeather.cityPressureString
         humidityLabel.text = currentWeather.cityHumidityString
 
@@ -75,7 +90,8 @@ class TodayWeatherViewController: UIViewController {
         notificationToken = results.observe { [weak self] (changes: RealmCollectionChange) in
             switch changes {
             case .initial:
-                self?.changeUILabels()
+                print("new")
+//                self?.changeUILabels()
             case .update(_, _, _, _):
                 self?.changeUILabels()
             case .error(let error):
@@ -101,10 +117,32 @@ class TodayWeatherViewController: UIViewController {
     @IBAction func refreshButtonTapped(_ sender: UIButton) {
         // when user tapp on refresh button, activity indicator switch on and get new weather data from server. And then update UI.
         toggleActivityIndicator(on: true)
-        manager.getWeatherData(city: cityName)
+        manager.getWeatherData(city: cityName, units: units)
         updateUI()
     }
     
+    @IBAction func openSettingsScreen(_ sender: UIButton) {
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        guard segue.identifier == "settingsSegue" else { return }
+        guard let destinationVC = segue.destination as? SettingsViewController else { return }
+        destinationVC.units = units
+        
+    }
+    
+    
+    
+    @IBAction func unwindSegueWithData(segue: UIStoryboardSegue) {
+        
+        guard let sourceViewController = segue.source as? SettingsViewController else { return }
+        guard let svcUnits = sourceViewController.units else { return }
+        units = svcUnits
+        
+        manager.getWeatherData(city: cityName, units: units)
+    }
+    
+    @IBAction func unwindSegueWithoutData(segue: UIStoryboardSegue) { }
 }
 
 
