@@ -17,6 +17,7 @@
 		A579549D200793DB00C46E58 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A579549B200793DB00C46E58 /* Main.storyboard */; };
 		A57954A2200793DB00C46E58 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A57954A1200793DB00C46E58 /* Assets.xcassets */; };
 		A57954A5200793DB00C46E58 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A57954A3200793DB00C46E58 /* LaunchScreen.storyboard */; };
+		A5CE3CB72015F3B6009E3D2E /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5CE3CB62015F3B6009E3D2E /* GradientView.swift */; };
 		A5D1BC352008EDFE0081C593 /* CurrentWeatherClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5D1BC342008EDFE0081C593 /* CurrentWeatherClass.swift */; };
 		A5D1BC372008F4B80081C593 /* RealmDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5D1BC362008F4B80081C593 /* RealmDataManager.swift */; };
 		A5F6DE47200C9E5400E2445A /* Protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5F6DE46200C9E5400E2445A /* Protocols.swift */; };
@@ -38,6 +39,7 @@
 		A57954A1200793DB00C46E58 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A57954A4200793DB00C46E58 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		A57954A6200793DB00C46E58 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A5CE3CB62015F3B6009E3D2E /* GradientView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GradientView.swift; path = TodayWeather/GradientView.swift; sourceTree = SOURCE_ROOT; };
 		A5D1BC342008EDFE0081C593 /* CurrentWeatherClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentWeatherClass.swift; sourceTree = "<group>"; };
 		A5D1BC362008F4B80081C593 /* RealmDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmDataManager.swift; sourceTree = "<group>"; };
 		A5F6DE46200C9E5400E2445A /* Protocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Protocols.swift; sourceTree = "<group>"; };
@@ -100,6 +102,7 @@
 				A5F6DE64200CEB4300E2445A /* WriteTransaction.swift */,
 				A5F6DE66200CF20B00E2445A /* Container.swift */,
 				A51DC9A2200DDE5D00A7CDB6 /* FetchedResults.swift */,
+				A5CE3CB62015F3B6009E3D2E /* GradientView.swift */,
 			);
 			path = TodayWeather;
 			sourceTree = "<group>";
@@ -292,6 +295,7 @@
 			files = (
 				A51DC9A3200DDE5D00A7CDB6 /* FetchedResults.swift in Sources */,
 				A51DC9A0200DD5FC00A7CDB6 /* DataManagerSingleton.swift in Sources */,
+				A5CE3CB72015F3B6009E3D2E /* GradientView.swift in Sources */,
 				A579549A200793DB00C46E58 /* TodayWeatherViewController.swift in Sources */,
 				A5F6DE47200C9E5400E2445A /* Protocols.swift in Sources */,
 				A5D1BC352008EDFE0081C593 /* CurrentWeatherClass.swift in Sources */,

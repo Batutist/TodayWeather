@@ -29,9 +29,12 @@ public final class Container {
         }
     }
     
-    public func values<T: Persistable> (_ type: T.Type) -> FetchedResults<T> {
+    public func values<T: Persistable> (_ type: T.Type, matching query: T.Query) -> FetchedResults<T> {
         
-        let results = realm.objects(T.ManagedObject.self)
+        var results = realm.objects(T.ManagedObject.self)
+        if let predicate = query.predicate {
+            results = results.filter(predicate)
+        }
         
         return FetchedResults(results: results)
     }

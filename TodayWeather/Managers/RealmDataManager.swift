@@ -12,11 +12,9 @@ import RealmSwift
 class RealmDataManager {
     // get current weather from DB
     func getCurrentWeatherFromDB() -> CurrentWeather {
-        do {
-            let realm = try Realm()
+
             let currentWeatherClass = realm.objects(CurrentWeatherClass.self)
-            
-            
+        
             var currentWeather = CurrentWeather()
 
             for value in currentWeatherClass {
@@ -33,17 +31,13 @@ class RealmDataManager {
             }
 
             return currentWeather
-        } catch (let error as NSError) {
-            fatalError("Error opening realm: \(error.localizedDescription)")
-        }
+
     }
     
-    func getCurrentWeatherFromRealm() -> FetchedResults<CurrentWeather> {
-
-        let realm = try! Realm()
+    func getCurrentWeatherFromRealm(cityName: String) -> FetchedResults<CurrentWeather> {
         
         let container = Container(realm: realm)
-        let currentWeather = container.values(CurrentWeather.self)
+        let currentWeather = container.values(CurrentWeather.self, matching: .cityName(cityName))
         
         return currentWeather
     }

@@ -26,6 +26,10 @@ struct CurrentWeather {
 }
 
 extension CurrentWeather {
+    
+    var cityAndCountryName: String {
+        return cityName + ", " + cityCountry
+    }
     var cityPressureString: String {
         return "\(cityPressure) mb"
     }
@@ -64,6 +68,21 @@ extension CurrentWeather {
     }
     var cityWindSpeedImperialString: String {
         return "\(cityWindSpeed) mil/h"
+    }
+}
+
+
+extension CurrentWeather {
+    
+    public enum Query: QueryType {
+        case cityName(String)
+        
+        public var predicate: NSPredicate? {
+            switch self {
+            case .cityName(let cityName):
+                return NSPredicate(format: "cityName == %@", cityName)
+            }
+        }
     }
 }
 
