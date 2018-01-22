@@ -18,7 +18,6 @@ final class DataManagerSingleton {
     private init() {}
     
     func getWeatherData(city: String, units: String) {
-//        let realm = try! Realm()
         let url = "https://api.openweathermap.org/data/2.5/weather"
         let param =  ["q": city, "units": units, "appid": "0d56898a0da8944be0e2dff08367ac8c"]
         var currentWeather = CurrentWeather()
@@ -51,7 +50,6 @@ final class DataManagerSingleton {
                 
                 print("JSON: \(currentWeather)")
                 do {
-                    let realm = try Realm()
                     let writeTransaction = WriteTransaction(realm: realm)
                     try realm.write({
                         writeTransaction.add(currentWeather, update: true)
