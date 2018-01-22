@@ -34,10 +34,10 @@ class RealmDataManager {
 
     }
     
-    func getCurrentWeatherFromRealm() -> FetchedResults<CurrentWeather> {
+    func getCurrentWeatherFromRealm(cityName: String) -> FetchedResults<CurrentWeather> {
         
         let container = Container(realm: realm)
-        let currentWeather = container.values(CurrentWeather.self)
+        let currentWeather = container.values(CurrentWeather.self, matching: .cityName(cityName))
         
         return currentWeather
     }

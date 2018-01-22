@@ -21,7 +21,7 @@ class SettingsViewController: UIViewController {
     let windSpeedInMilesPerHour = "Wind speed will be dispalying in MPH"
     
     override func viewWillAppear(_ animated: Bool) {
-        super .viewWillAppear(animated)
+        super.viewWillAppear(animated)
         
         if units == "metric" {
             chooseUnits.selectedSegmentIndex = 0
@@ -44,11 +44,15 @@ class SettingsViewController: UIViewController {
         
         switch sender.selectedSegmentIndex {
         case 0:
+            userDefaults.set("metric", forKey: "units")
+            
             temperatireInfoLabel.text = temperatureInCelsius
             windSpeedInfoLabel.text = windSpeedInMeterPerSecond
             units = "metric"
             print(chooseUnits.selectedSegmentIndex)
         case 1:
+            userDefaults.set("imperial", forKey: "units")
+            
             temperatireInfoLabel.text = temperatureInFahrenheit
             windSpeedInfoLabel.text = windSpeedInMilesPerHour
             units = "imperial"
@@ -56,19 +60,6 @@ class SettingsViewController: UIViewController {
         default:
             break
         }
-        
-//        switch chooseUnits.selectedSegmentIndex {
-//        case 0:
-//            temperatireInfoLabel.text = temperatureInCelsius
-//            windSpeedInfoLabel.text = windSpeedInMeterPerSecond
-//            print(chooseUnits.selectedSegmentIndex)
-//        case 1:
-//            temperatireInfoLabel.text = temperatureInFahrenheit
-//            windSpeedInfoLabel.text = windSpeedInMilesPerHour
-//            print(chooseUnits.selectedSegmentIndex)
-//        default:
-//            break
-//        }
     }
     
     @IBAction func saveChoosenUnits(_ sender: UIButton) {

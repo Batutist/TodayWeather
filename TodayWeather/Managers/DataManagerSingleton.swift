@@ -11,6 +11,8 @@ import Alamofire
 import SwiftyJSON
 import RealmSwift
 
+
+
 final class DataManagerSingleton {
     
     static let shared = DataManagerSingleton()
@@ -49,6 +51,7 @@ final class DataManagerSingleton {
                 //                }
                 
                 print("JSON: \(currentWeather)")
+                print(Realm.Configuration.defaultConfiguration.fileURL!)
                 do {
                     let writeTransaction = WriteTransaction(realm: realm)
                     try realm.write({
@@ -58,7 +61,7 @@ final class DataManagerSingleton {
                 } catch let error as NSError {
                     print(error.localizedDescription)
                 }
-                
+                userDefaults.set(true, forKey: "Load")
             case .failure(let error):
                 print(error)
             }

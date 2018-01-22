@@ -18,29 +18,25 @@ protocol ManagedObjectProtocol {
 
 public protocol Persistable {
     associatedtype ManagedObject: RealmSwift.Object
+    associatedtype Query: QueryType
 //    associatedtype PropertyValue: PropertyValueType
-//    associatedtype Query: QueryType
     
     init(mangedObject: ManagedObject)
     
     func toManagedObject() -> ManagedObject
 }
 
+
+public protocol QueryType {
+    var predicate: NSPredicate? { get }
+}
+
+
+
 public typealias PropertyValuePair = (name: String, value: Any)
 public protocol PropertyValueType {
     var propertyValuePair: PropertyValuePair { get }
 }
 
-public protocol QueryType {
-    var predicate: NSPredicate? { get }
-    var sortDescriptors: [SortDescriptor] { get }
-}
 
-//protocol ManagedObjectConvertible {
-//    associatedtype ManagedObject: RealmSwift.Object
-//
-//    init(mangedObject: ManagedObject)
-//
-//    func toManagedObject() -> ManagedObject
-//}
 
