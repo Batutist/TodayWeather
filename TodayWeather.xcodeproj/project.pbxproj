@@ -39,7 +39,7 @@
 		A57954A1200793DB00C46E58 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A57954A4200793DB00C46E58 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		A57954A6200793DB00C46E58 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		A5CE3CB62015F3B6009E3D2E /* GradientView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GradientView.swift; path = TodayWeather/GradientView.swift; sourceTree = SOURCE_ROOT; };
+		A5CE3CB62015F3B6009E3D2E /* GradientView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GradientView.swift; path = "TodayWeather/Presentation Layer/GradientView.swift"; sourceTree = SOURCE_ROOT; };
 		A5D1BC342008EDFE0081C593 /* CurrentWeatherClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentWeatherClass.swift; sourceTree = "<group>"; };
 		A5D1BC362008F4B80081C593 /* RealmDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmDataManager.swift; sourceTree = "<group>"; };
 		A5F6DE46200C9E5400E2445A /* Protocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Protocols.swift; sourceTree = "<group>"; };
@@ -60,13 +60,13 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		A55F30D62008A23300E51311 /* Weather model */ = {
+		A55F30D62008A23300E51311 /* Models */ = {
 			isa = PBXGroup;
 			children = (
 				A55F30CE20088D1800E51311 /* CurrentWeather.swift */,
 				A5D1BC342008EDFE0081C593 /* CurrentWeatherClass.swift */,
 			);
-			path = "Weather model";
+			path = Models;
 			sourceTree = "<group>";
 		};
 		A579548B200793DB00C46E58 = {
@@ -90,21 +90,45 @@
 		A5795496200793DB00C46E58 /* TodayWeather */ = {
 			isa = PBXGroup;
 			children = (
-				A579549B200793DB00C46E58 /* Main.storyboard */,
-				A5F6DE49200CA35700E2445A /* Controllers */,
-				A5F6DE48200CA33B00E2445A /* Managers */,
-				A55F30D62008A23300E51311 /* Weather model */,
+				A5CE3CD92016210A009E3D2E /* Application Layer */,
+				A5CE3CDA2016212D009E3D2E /* Presentation Layer */,
+				A5CE3CDB2016215F009E3D2E /* BuisinessLogic Layer */,
+				A55F30D62008A23300E51311 /* Models */,
 				A5F6DE4A200CA36500E2445A /* Resourse */,
-				A57954A3200793DB00C46E58 /* LaunchScreen.storyboard */,
 				A57954A6200793DB00C46E58 /* Info.plist */,
+			);
+			path = TodayWeather;
+			sourceTree = "<group>";
+		};
+		A5CE3CD92016210A009E3D2E /* Application Layer */ = {
+			isa = PBXGroup;
+			children = (
 				A5795497200793DB00C46E58 /* AppDelegate.swift */,
 				A5F6DE46200C9E5400E2445A /* Protocols.swift */,
+			);
+			path = "Application Layer";
+			sourceTree = "<group>";
+		};
+		A5CE3CDA2016212D009E3D2E /* Presentation Layer */ = {
+			isa = PBXGroup;
+			children = (
+				A579549B200793DB00C46E58 /* Main.storyboard */,
+				A57954A3200793DB00C46E58 /* LaunchScreen.storyboard */,
+				A5F6DE49200CA35700E2445A /* Controllers */,
+				A5CE3CB62015F3B6009E3D2E /* GradientView.swift */,
+			);
+			path = "Presentation Layer";
+			sourceTree = "<group>";
+		};
+		A5CE3CDB2016215F009E3D2E /* BuisinessLogic Layer */ = {
+			isa = PBXGroup;
+			children = (
+				A5F6DE48200CA33B00E2445A /* Managers */,
 				A5F6DE64200CEB4300E2445A /* WriteTransaction.swift */,
 				A5F6DE66200CF20B00E2445A /* Container.swift */,
 				A51DC9A2200DDE5D00A7CDB6 /* FetchedResults.swift */,
-				A5CE3CB62015F3B6009E3D2E /* GradientView.swift */,
 			);
-			path = TodayWeather;
+			path = "BuisinessLogic Layer";
 			sourceTree = "<group>";
 		};
 		A5F6DE48200CA33B00E2445A /* Managers */ = {
