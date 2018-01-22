@@ -54,17 +54,15 @@ class TodayWeatherViewController: UIViewController, CLLocationManagerDelegate {
             // Get current coordiantes, parse them to location city & country name.
             // Load weather data by new location
             getWeatherByCurrentLocation()
-            // Update user interface using new values
-            updateUI()
         } else {
             // get data from server and save to realm DB
             // функция получает данные с сервера и созраняет в БД
             print("first load")
             manager.getWeatherData(city: defaultCity, units: "metric")
-            // realm notification watch for values, that change in DB
-            // нотификация следит за изменениями в БД и выводит их в UI
-            updateUI()
         }
+        // realm notification watch for values, that change in DB
+        // нотификация следит за изменениями в БД и выводит их в UI
+        updateUI()
     }
     
     deinit {

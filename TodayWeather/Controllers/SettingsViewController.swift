@@ -8,6 +8,11 @@
 
 import UIKit
 
+private enum Segments: Int {
+    case Metric = 0
+    case Imperial = 1
+}
+
 class SettingsViewController: UIViewController {
     
     @IBOutlet weak var chooseUnits: UISegmentedControl!
@@ -20,15 +25,17 @@ class SettingsViewController: UIViewController {
     let windSpeedInMeterPerSecond = "Wind speed will be dispalying in m/s"
     let windSpeedInMilesPerHour = "Wind speed will be dispalying in MPH"
     
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
         if units == "metric" {
-            chooseUnits.selectedSegmentIndex = 0
+            print(Segments.Metric.rawValue)
+            chooseUnits.selectedSegmentIndex = Segments.Metric.rawValue
             temperatireInfoLabel.text = temperatureInCelsius
             windSpeedInfoLabel.text = windSpeedInMeterPerSecond
         } else {
-            chooseUnits.selectedSegmentIndex = 1
+            chooseUnits.selectedSegmentIndex = Segments.Imperial.rawValue
             temperatireInfoLabel.text = temperatureInFahrenheit
             windSpeedInfoLabel.text = windSpeedInMilesPerHour
         }
@@ -37,29 +44,37 @@ class SettingsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print(chooseUnits.selectedSegmentIndex)
     }
     
     @IBAction func chooseUnits(_ sender: UISegmentedControl) {
+        let selectedSegment = Segments(rawValue: sender.selectedSegmentIndex)!
         
-        switch sender.selectedSegmentIndex {
-        case 0:
+        switch selectedSegment {
+        case .Metric:
             userDefaults.set("metric", forKey: "units")
             
             temperatireInfoLabel.text = temperatureInCelsius
             windSpeedInfoLabel.text = windSpeedInMeterPerSecond
             units = "metric"
-            print(chooseUnits.selectedSegmentIndex)
-        case 1:
+            print("Metric")
+        case .Imperial:
             userDefaults.set("imperial", forKey: "units")
             
             temperatireInfoLabel.text = temperatureInFahrenheit
             windSpeedInfoLabel.text = windSpeedInMilesPerHour
             units = "imperial"
-            print(chooseUnits.selectedSegmentIndex)
-        default:
-            break
+            print("Imperial")
         }
+//        switch sender.selectedSegmentIndex {
+//        case 0:
+//
+//            print(chooseUnits.selectedSegmentIndex)
+//        case 1:
+//
+//            print(chooseUnits.selectedSegmentIndex)
+//        default:
+//            break
+//        }
     }
     
     @IBAction func saveChoosenUnits(_ sender: UIButton) {
