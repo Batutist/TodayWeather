@@ -20,7 +20,6 @@ class TodayWeatherViewController: UIViewController, CLLocationManagerDelegate {
     
     let geocoder = CLGeocoder()
     var placemark: CLPlacemark?
-
     
     @IBOutlet weak var cityNameLabel: UILabel!
     @IBOutlet weak var weatherIcon: UIImageView!
@@ -45,6 +44,8 @@ class TodayWeatherViewController: UIViewController, CLLocationManagerDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        // Get users permission for work with his location
+        locationManager.requestWhenInUseAuthorization()
         toggleActivityIndicator(on: true)
         // If userDefault for "Load" == false load data for deafault city.
         // Else load data for city which is determined from the coordinates
@@ -59,7 +60,7 @@ class TodayWeatherViewController: UIViewController, CLLocationManagerDelegate {
             // get data from server and save to realm DB
             // функция получает данные с сервера и созраняет в БД
             print("first load")
-            manager.getWeatherData(city: defaultCity, units: units ?? "metric")
+            manager.getWeatherData(city: defaultCity, units: "metric")
             // realm notification watch for values, that change in DB
             // нотификация следит за изменениями в БД и выводит их в UI
             updateUI()
@@ -80,7 +81,7 @@ class TodayWeatherViewController: UIViewController, CLLocationManagerDelegate {
         // прячем activity indicator когда все все данные получены
         toggleActivityIndicator(on: false)
 
-        if units == "metric" {
+        if units == "metric" || userDefaults.string(forKey: "units") == nil {
             temperatureLabel.text = currentWeather.temperatureMetricString
             temperatureMinLabel.text = currentWeather.cityTemperatureMinMetricString
             temperatureMaxLabel.text = currentWeather.cityTemperatureMaxMetricString
