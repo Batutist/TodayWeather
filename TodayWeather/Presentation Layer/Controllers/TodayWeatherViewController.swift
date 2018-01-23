@@ -79,7 +79,7 @@ class TodayWeatherViewController: UIViewController, CLLocationManagerDelegate {
         // прячем activity indicator когда все все данные получены
         toggleActivityIndicator(on: false)
 
-        if units == "metric" || userDefaults.string(forKey: "units") == nil {
+        if units == "metric" || units == nil {
             temperatureLabel.text = currentWeather.temperatureMetricString
             temperatureMinLabel.text = currentWeather.cityTemperatureMinMetricString
             temperatureMaxLabel.text = currentWeather.cityTemperatureMaxMetricString
@@ -94,9 +94,7 @@ class TodayWeatherViewController: UIViewController, CLLocationManagerDelegate {
         // выводим полученные значения в пользовательский интерфейс
         cityNameLabel.text = currentWeather.cityAndCountryName
         weatherIcon.image = UIImage(named: currentWeather.cityWeatherIcon)
-
         weatherDescriptionLabel.text = currentWeather.cityWeatherDescription
-
         pressureLabel.text = currentWeather.cityPressureString
         humidityLabel.text = currentWeather.cityHumidityString
 

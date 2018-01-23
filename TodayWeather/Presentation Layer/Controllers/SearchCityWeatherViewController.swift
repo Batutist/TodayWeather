@@ -14,6 +14,7 @@ class SearchCityWeatherViewController: UIViewController {
     var notificationToken: NotificationToken? = nil
     
     lazy var manager = DataManagerSingleton.shared
+    lazy var realmDataManager = RealmDataManager()
     lazy var searchCityWeather = SearchCityWeather()
     
     @IBOutlet weak var searchCityTextField: UITextField!
@@ -28,41 +29,110 @@ class SearchCityWeatherViewController: UIViewController {
     @IBOutlet weak var cityPressureLabel: UILabel!
     @IBOutlet weak var cityHumidityLabel: UILabel!
     
-    var defaultCity = "Taganrog"
-    var cityName: String?
-    var country: String?
+    let defaultCity = "Taganrog"
+    var searchCity: String!
     var units = userDefaults.string(forKey: "units")
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        manager.getSearchCityWeatherData(searchCity: defaultCity, units: "metric")
+        
+        print("search city now is: \(searchCity)")
+        print("units now are: \(units)")
+        if searchCity == nil {
+            searchCity = defaultCity
+        }
+        
+        manager.getSearchCityWeatherData(searchCity: searchCity, units: units ?? "metric")
+        
+        updateUI()
     }
     
     
+    func changeLabelsAndImages() {
+        print("now search by: \(searchCity)!")
+        let searchCityWeather = realmDataManager.getSearchCityWeatherFromRealm(searchCityName: searchCity).value(at: 0)
+        print("weather is: \(searchCityWeather)")
+        
+        if units == "metric" || units == nil {
+            cityTemperatureLabel.text = searchCityWeather.temperatureMetricString
+            cityTemperatureMaxLabel.text = searchCityWeather.cityTemperatureMaxMetricString
+            cityTemperatureMinLabel.text = searchCityWeather.cityTemperatureMinMetricString
+            cityWindSpeedLabel.text = searchCityWeather.cityWindSpeedMetricString
+        } else {
+            cityTemperatureLabel.text = searchCityWeather.temperatureImperialString
+            cityTemperatureMaxLabel.text = searchCityWeather.cityTemperatureMaxImperialString
+            cityTemperatureMinLabel.text = searchCityWeather.cityTemperatureMinImperialString
+            cityWindSpeedLabel.text = searchCityWeather.cityWindSpeedImperialString
+        }
+        cityNameLabel.text = searchCityWeather.cityAndCountryName
+        cityWeatherIcon.image = UIImage(named: searchCityWeather.cityWeatherIcon)
+        cityWeatherDescription.text = searchCityWeather.cityWeatherDescription
+        cityPressureLabel.text = searchCityWeather.cityPressureString
+        cityHumidityLabel.text = searchCityWeather.cityHumidityString
+    }
     
+    func updateUI() {
+        
+        let results = realm.objects(SearchCityWeatherClass.self)
+        
+        notificationToken = results.observe { [weak self] (changes: RealmCollectionChange) in
+            switch changes {
+            case .initial:
+                print("new")
+            case .update(_, _, _, _):
+                self?.changeLabelsAndImages()
+                print("update")
+                
+            case .error(let error as NSError):
+                print("error is: \(error.localizedDescription)")
+                fatalError("\(error)")
+            }
+        }
+    }
+    
+    
+    deinit {
+        notificationToken?.invalidate()
+    }
     // func with alert controller to display if citySearchTextField is empty
     // функция с всплывающей ошибкой в случае пустого citySearchTextField
-    func dontEnterCityName() {
-        let alertController = UIAlertController(title: "Ошибка", message: "Вы не ввели имя города.", preferredStyle: .alert)
+    func errorAlertController(message: String) {
+        let alertController = UIAlertController(title: "Ошибка", message: message, preferredStyle: .alert)
         let OK = UIAlertAction(title: "OK", style: .default, handler: nil)
         alertController.addAction(OK)
         present(alertController, animated: true, completion: nil)
     }
     
+
+    
+    
     @IBAction func searchCityButtonTapped(_ sender: UIButton) {
-        
         // check citySearchTextField on validation
         // проверяем валидность введеной информации в citySearchTextField
-        
-        if let searchCity = searchCityTextField.text, searchCity != "" {
-            
-            //            manager.loadJSONSearch(city: searchCity)
-            // call func to update user interface
-            // вызываем функцию для обновления отображаемых данных
-            //            updateUI()
-        } else {
-            dontEnterCityName()
+        guard let searchCity = searchCityTextField.text, searchCity != "" else {
+            errorAlertController(message: "You don't enter city name")
+            return
         }
+        guard searchCity.count >= 3 else {
+            errorAlertController(message: "You must enter at least 3 characters.")
+            return
+        }
+        guard searchCity.last != " " else {
+            print("Here is our variant: \(searchCity)!")
+            let searchCityWithoutSpace = String(searchCity.dropLast().capitalized)
+            print("And now: \(searchCityWithoutSpace)!")
+            userDefaults.set(searchCityWithoutSpace, forKey: "lastSearchCity")
+            self.searchCity = searchCityWithoutSpace
+            manager.getSearchCityWeatherData(searchCity: searchCityWithoutSpace, units: units ?? "metric")
+            updateUI()
+            view.endEditing(true)
+            return
+        }
+        self.searchCity = searchCity.capitalized
+        userDefaults.set(searchCity.capitalized, forKey: "lastSearchCity")
+        manager.getSearchCityWeatherData(searchCity: searchCity, units: units ?? "metric")
+        
+        updateUI()
         // hide keyboard when button is pressed
         // скрываем клавиатуру по нажатию на кнопку поиск
         view.endEditing(true)
