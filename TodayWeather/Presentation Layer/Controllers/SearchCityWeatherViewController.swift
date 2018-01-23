@@ -31,7 +31,7 @@ class SearchCityWeatherViewController: UIViewController {
     
     let defaultCity = "Taganrog"
     var searchCity: String!
-    var units = userDefaults.string(forKey: "units")
+//    var units = userDefaults.string(forKey: "units")
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -42,7 +42,7 @@ class SearchCityWeatherViewController: UIViewController {
 //            searchCity = defaultCity
 //        }
         
-        manager.getSearchCityWeatherData(searchCity: searchCity ?? defaultCity, units: units ?? "metric")
+        manager.getSearchCityWeatherData(searchCity: searchCity ?? defaultCity, units: units)
         
         updateUI()
     }
@@ -54,7 +54,7 @@ class SearchCityWeatherViewController: UIViewController {
         let searchCityWeather = realmDataManager.getSearchCityWeatherFromRealm(searchCityName: searchCity ?? defaultCity).value(at: 0)
         print("weather is: \(searchCityWeather)")
         
-        if units == "metric" || units == nil {
+        if units == "metric" {
             cityTemperatureLabel.text = searchCityWeather.temperatureMetricString
             cityTemperatureMaxLabel.text = searchCityWeather.cityTemperatureMaxMetricString
             cityTemperatureMinLabel.text = searchCityWeather.cityTemperatureMinMetricString
@@ -124,14 +124,14 @@ class SearchCityWeatherViewController: UIViewController {
             print("And now: \(searchCityWithoutSpace)!")
             userDefaults.set(searchCityWithoutSpace, forKey: "lastSearchCity")
             self.searchCity = searchCityWithoutSpace
-            manager.getSearchCityWeatherData(searchCity: searchCityWithoutSpace, units: units ?? "metric")
+            manager.getSearchCityWeatherData(searchCity: searchCityWithoutSpace, units: units)
             updateUI()
             view.endEditing(true)
             return
         }
         self.searchCity = searchCity.capitalized
         userDefaults.set(searchCity.capitalized, forKey: "lastSearchCity")
-        manager.getSearchCityWeatherData(searchCity: searchCity, units: units ?? "metric")
+        manager.getSearchCityWeatherData(searchCity: searchCity, units: units)
         
         updateUI()
         // hide keyboard when button is pressed

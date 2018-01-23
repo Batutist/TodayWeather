@@ -36,7 +36,7 @@ class TodayWeatherViewController: UIViewController, CLLocationManagerDelegate {
     var defaultCity = "Taganrog"
     var cityName: String?
     var country: String?
-    var units = userDefaults.string(forKey: "units")
+//    var units = userDefaults.string(forKey: "units")
     
     lazy var manager = DataManagerSingleton.shared
     lazy var currentWeather = CurrentWeather()
@@ -58,7 +58,7 @@ class TodayWeatherViewController: UIViewController, CLLocationManagerDelegate {
             // get data from server and save to realm DB
             // функция получает данные с сервера и созраняет в БД
             print("first load")
-            manager.getWeatherData(city: defaultCity, units: "metric")
+            manager.getWeatherData(city: defaultCity, units: units)
         }
         // realm notification watch for values, that change in DB
         // нотификация следит за изменениями в БД и выводит их в UI
@@ -108,7 +108,7 @@ class TodayWeatherViewController: UIViewController, CLLocationManagerDelegate {
             switch changes {
             case .initial:
                 print("new")
-//                self?.changeUILabels()
+                self?.changeUILabels()
             case .update(_, _, _, _):
                 self?.changeUILabels()
                 print("update")
@@ -191,7 +191,7 @@ class TodayWeatherViewController: UIViewController, CLLocationManagerDelegate {
                     self.country = countryShortName
                     let cityAndCountryName = cityName + ", " + countryShortName
                     // Get weather data by new location
-                    manager.getWeatherData(city: cityAndCountryName, units: units ?? "metric")
+                    manager.getWeatherData(city: cityAndCountryName, units: units)
                 }
                 print("current location city is: \(cityName) & country: \(country)")
             }
@@ -224,38 +224,40 @@ class TodayWeatherViewController: UIViewController, CLLocationManagerDelegate {
     @IBAction func refreshButtonTapped(_ sender: UIButton) {
         // when user tapp on refresh button, activity indicator switch on and get new weather data from server. And then update UI.
         toggleActivityIndicator(on: true)
+        let cityAndCountryName = cityName! + ", " + country!
+        manager.getWeatherData(city: cityAndCountryName, units: units)
         getWeatherByCurrentLocation()
         updateUI()
     }
     
-    // Works when user tapp on settings button
-    @IBAction func openSettingsScreen(_ sender: UIButton) {
-    }
-    
-    // Transfer current units value to SettingsViewController
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        guard segue.identifier == "settingsSegue" else { return }
-        guard let destinationVC = segue.destination as? SettingsViewController else { return }
-        destinationVC.units = units
-        
-    }
-    
-    
-    // Unwind segue from SettingsViewController with saving data
-    @IBAction func unwindSegueWithData(segue: UIStoryboardSegue) {
-        toggleActivityIndicator(on: true)
-        guard let sourceViewController = segue.source as? SettingsViewController else { return }
-        guard let svcUnits = sourceViewController.units else { return }
-        units = svcUnits
-        
-        guard let cityName = cityName, let country = country else { return }
-        let cityAndCountryName = cityName + ", " + country
-        manager.getWeatherData(city: cityAndCountryName, units: units ?? "metric")
-        updateUI()
-    }
-    
-    // Unwind segue without data saving
-    @IBAction func unwindSegueWithoutData(segue: UIStoryboardSegue) { }
+//    // Works when user tapp on settings button
+//    @IBAction func openSettingsScreen(_ sender: UIButton) {
+//    }
+//
+//    // Transfer current units value to SettingsViewController
+//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+//        guard segue.identifier == "settingsSegue" else { return }
+//        guard let destinationVC = segue.destination as? SettingsViewController else { return }
+//        destinationVC.units = units
+//
+//    }
+//
+//
+//    // Unwind segue from SettingsViewController with saving data
+//    @IBAction func unwindSegueWithData(segue: UIStoryboardSegue) {
+//        toggleActivityIndicator(on: true)
+//        guard let sourceViewController = segue.source as? SettingsViewController else { return }
+//        guard let svcUnits = sourceViewController.units else { return }
+//        units = svcUnits
+//
+//        guard let cityName = cityName, let country = country else { return }
+//        let cityAndCountryName = cityName + ", " + country
+//        manager.getWeatherData(city: cityAndCountryName, units: units ?? "metric")
+//        updateUI()
+//    }
+//
+//    // Unwind segue without data saving
+//    @IBAction func unwindSegueWithoutData(segue: UIStoryboardSegue) { }
 }
 
 
