@@ -24,6 +24,8 @@
 		A5F6DE47200C9E5400E2445A /* Protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5F6DE46200C9E5400E2445A /* Protocols.swift */; };
 		A5F6DE65200CEB4300E2445A /* WriteTransaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5F6DE64200CEB4300E2445A /* WriteTransaction.swift */; };
 		A5F6DE67200CF20B00E2445A /* Container.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5F6DE66200CF20B00E2445A /* Container.swift */; };
+		A5F8D4382017223E00834A71 /* SearchCityWeather.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5F8D4372017223E00834A71 /* SearchCityWeather.swift */; };
+		A5F8D43A201722FA00834A71 /* SearchCityWeatherClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5F8D439201722FA00834A71 /* SearchCityWeatherClass.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -47,6 +49,8 @@
 		A5F6DE46200C9E5400E2445A /* Protocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Protocols.swift; sourceTree = "<group>"; };
 		A5F6DE64200CEB4300E2445A /* WriteTransaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteTransaction.swift; sourceTree = "<group>"; };
 		A5F6DE66200CF20B00E2445A /* Container.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Container.swift; sourceTree = "<group>"; };
+		A5F8D4372017223E00834A71 /* SearchCityWeather.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchCityWeather.swift; sourceTree = "<group>"; };
+		A5F8D439201722FA00834A71 /* SearchCityWeatherClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchCityWeatherClass.swift; sourceTree = "<group>"; };
 		FAEA1670AD5C0FBE1EC83420 /* Pods-TodayWeather.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TodayWeather.release.xcconfig"; path = "Pods/Target Support Files/Pods-TodayWeather/Pods-TodayWeather.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -65,8 +69,8 @@
 		A55F30D62008A23300E51311 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				A55F30CE20088D1800E51311 /* CurrentWeather.swift */,
-				A5D1BC342008EDFE0081C593 /* CurrentWeatherClass.swift */,
+				A5F8D4362017222400834A71 /* SearchCityWeather */,
+				A5F8D4352017221400834A71 /* CurrentWeather */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -166,6 +170,24 @@
 				A57954A1200793DB00C46E58 /* Assets.xcassets */,
 			);
 			path = Images;
+			sourceTree = "<group>";
+		};
+		A5F8D4352017221400834A71 /* CurrentWeather */ = {
+			isa = PBXGroup;
+			children = (
+				A55F30CE20088D1800E51311 /* CurrentWeather.swift */,
+				A5D1BC342008EDFE0081C593 /* CurrentWeatherClass.swift */,
+			);
+			path = CurrentWeather;
+			sourceTree = "<group>";
+		};
+		A5F8D4362017222400834A71 /* SearchCityWeather */ = {
+			isa = PBXGroup;
+			children = (
+				A5F8D4372017223E00834A71 /* SearchCityWeather.swift */,
+				A5F8D439201722FA00834A71 /* SearchCityWeatherClass.swift */,
+			);
+			path = SearchCityWeather;
 			sourceTree = "<group>";
 		};
 		A63C15B9BDD1AD3C5A9E97A0 /* Frameworks */ = {
@@ -323,6 +345,7 @@
 				A51DC9A3200DDE5D00A7CDB6 /* FetchedResults.swift in Sources */,
 				A51DC9A0200DD5FC00A7CDB6 /* DataManagerSingleton.swift in Sources */,
 				A5CE3CB72015F3B6009E3D2E /* GradientView.swift in Sources */,
+				A5F8D4382017223E00834A71 /* SearchCityWeather.swift in Sources */,
 				A579549A200793DB00C46E58 /* TodayWeatherViewController.swift in Sources */,
 				A5F6DE47200C9E5400E2445A /* Protocols.swift in Sources */,
 				A5D1BC352008EDFE0081C593 /* CurrentWeatherClass.swift in Sources */,
@@ -332,6 +355,7 @@
 				A5513502200E1B7E00BDDB75 /* SettingsViewController.swift in Sources */,
 				A55F30CF20088D1800E51311 /* CurrentWeather.swift in Sources */,
 				A5F6DE67200CF20B00E2445A /* Container.swift in Sources */,
+				A5F8D43A201722FA00834A71 /* SearchCityWeatherClass.swift in Sources */,
 				A5F6DE65200CEB4300E2445A /* WriteTransaction.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

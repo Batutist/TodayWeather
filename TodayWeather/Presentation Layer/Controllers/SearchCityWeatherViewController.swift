@@ -8,8 +8,13 @@
 
 import Foundation
 import UIKit
+import RealmSwift
 
 class SearchCityWeatherViewController: UIViewController {
+    var notificationToken: NotificationToken? = nil
+    
+    lazy var manager = DataManagerSingleton.shared
+    lazy var searchCityWeather = SearchCityWeather()
     
     @IBOutlet weak var searchCityTextField: UITextField!
     @IBOutlet weak var searchCityButton: UIButton!
@@ -23,7 +28,15 @@ class SearchCityWeatherViewController: UIViewController {
     @IBOutlet weak var cityPressureLabel: UILabel!
     @IBOutlet weak var cityHumidityLabel: UILabel!
     
+    var defaultCity = "Taganrog"
+    var cityName: String?
+    var country: String?
+    var units = userDefaults.string(forKey: "units")
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        manager.getSearchCityWeatherData(searchCity: defaultCity, units: "metric")
+    }
     
     
     
@@ -40,16 +53,15 @@ class SearchCityWeatherViewController: UIViewController {
         
         // check citySearchTextField on validation
         // проверяем валидность введеной информации в citySearchTextField
-        if searchCityTextField.text == "" || searchCityTextField.text == nil {
-            dontEnterCityName()             /* func with alertController */
-        } else {
-            // if everything is ok transfer city name from citySearchTextField to func loadJSONSearch
-            // если все ок, то передаем название города из citySearchTextField в loadJSONSearch функцию
-            let searchCity = searchCityTextField.text!
-//            manager.loadJSONSearch(city: searchCity)
+        
+        if let searchCity = searchCityTextField.text, searchCity != "" {
+            
+            //            manager.loadJSONSearch(city: searchCity)
             // call func to update user interface
             // вызываем функцию для обновления отображаемых данных
-//            updateUI()
+            //            updateUI()
+        } else {
+            dontEnterCityName()
         }
         // hide keyboard when button is pressed
         // скрываем клавиатуру по нажатию на кнопку поиск
