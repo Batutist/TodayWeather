@@ -10,12 +10,6 @@ import Foundation
 import RealmSwift
 
 
-protocol ManagedObjectProtocol {
-    associatedtype Entity
-    func toEntity() -> Entity?
-}
-
-
 public protocol Persistable {
     associatedtype ManagedObject: RealmSwift.Object
     associatedtype Query: QueryType
