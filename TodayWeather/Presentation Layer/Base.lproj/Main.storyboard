@@ -433,17 +433,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gMO-s1-e74">
-                                <rect key="frame" x="155.66666666666666" y="661" width="64" height="48"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="30"/>
-                                <state key="normal" title="Save">
-                                    <color key="titleColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                </state>
-                                <connections>
-                                    <action selector="saveChoosenUnits:" destination="74r-JG-58A" eventType="touchUpInside" id="phn-Qf-cOP"/>
-                                    <segue destination="JnH-VB-VPz" kind="unwind" identifier="unwindSegueWithData" unwindAction="unwindSegueWithDataWithSegue:" id="xRa-nz-GO6"/>
-                                </connections>
-                            </button>
                             <segmentedControl opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="lZ3-rp-2kQ">
                                 <rect key="frame" x="124" y="372.66666666666669" width="127" height="29"/>
                                 <segments>
@@ -466,33 +455,18 @@
                                 <color key="textColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="x3H-4g-JBl">
-                                <rect key="frame" x="20" y="60" width="61" height="36"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                <state key="normal" title="Cancel">
-                                    <color key="titleColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                </state>
-                                <connections>
-                                    <segue destination="JnH-VB-VPz" kind="unwind" unwindAction="unwindSegueWithoutDataWithSegue:" id="sQP-ZP-uxy"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.79080500379999996" green="0.98061922999999995" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="lZ3-rp-2kQ" firstAttribute="centerY" secondItem="2Z3-RE-8Lk" secondAttribute="centerY" id="5tO-iW-TVk"/>
                             <constraint firstItem="UAw-Uw-bOl" firstAttribute="top" secondItem="7JE-Eq-K1P" secondAttribute="bottom" constant="8" id="7cG-Er-VV2"/>
-                            <constraint firstItem="gMO-s1-e74" firstAttribute="top" relation="lessThanOrEqual" secondItem="UAw-Uw-bOl" secondAttribute="bottom" constant="231" id="Blt-Z6-zDX"/>
                             <constraint firstItem="7JE-Eq-K1P" firstAttribute="top" secondItem="lZ3-rp-2kQ" secondAttribute="bottom" constant="31" id="Gce-Mg-fxt"/>
-                            <constraint firstItem="gMO-s1-e74" firstAttribute="centerX" secondItem="2Z3-RE-8Lk" secondAttribute="centerX" id="bo0-dv-gjs"/>
                             <constraint firstAttribute="trailing" secondItem="7JE-Eq-K1P" secondAttribute="trailing" constant="16" id="ihK-qf-m0v"/>
                             <constraint firstItem="UAw-Uw-bOl" firstAttribute="leading" secondItem="hGp-gU-Llb" secondAttribute="leading" constant="16" id="kqg-YY-yYJ"/>
                             <constraint firstItem="7JE-Eq-K1P" firstAttribute="centerX" secondItem="2Z3-RE-8Lk" secondAttribute="centerX" id="n4h-mI-WAh"/>
                             <constraint firstItem="7JE-Eq-K1P" firstAttribute="leading" secondItem="hGp-gU-Llb" secondAttribute="leading" constant="16" id="ny5-Eg-RWB"/>
                             <constraint firstAttribute="trailing" secondItem="UAw-Uw-bOl" secondAttribute="trailing" constant="16" id="wJf-uy-SlN"/>
-                            <constraint firstItem="2Z3-RE-8Lk" firstAttribute="bottom" secondItem="gMO-s1-e74" secondAttribute="bottom" constant="20" id="xMs-OM-OeY"/>
                             <constraint firstItem="lZ3-rp-2kQ" firstAttribute="centerX" secondItem="2Z3-RE-8Lk" secondAttribute="centerX" id="xfY-OF-6ub"/>
-                            <constraint firstItem="x3H-4g-JBl" firstAttribute="leading" secondItem="2Z3-RE-8Lk" secondAttribute="leading" constant="20" id="ydi-vB-t02"/>
-                            <constraint firstItem="x3H-4g-JBl" firstAttribute="top" secondItem="2Z3-RE-8Lk" secondAttribute="top" constant="16" id="zO5-0Z-yXh"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="2Z3-RE-8Lk"/>
                         <userDefinedRuntimeAttributes>
@@ -512,7 +486,6 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="A8P-Qn-jfQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <exit id="JnH-VB-VPz" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="1993" y="123"/>
         </scene>

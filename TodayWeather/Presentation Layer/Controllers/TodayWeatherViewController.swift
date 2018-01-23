@@ -229,35 +229,6 @@ class TodayWeatherViewController: UIViewController, CLLocationManagerDelegate {
         getWeatherByCurrentLocation()
         updateUI()
     }
-    
-//    // Works when user tapp on settings button
-//    @IBAction func openSettingsScreen(_ sender: UIButton) {
-//    }
-//
-//    // Transfer current units value to SettingsViewController
-//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-//        guard segue.identifier == "settingsSegue" else { return }
-//        guard let destinationVC = segue.destination as? SettingsViewController else { return }
-//        destinationVC.units = units
-//
-//    }
-//
-//
-//    // Unwind segue from SettingsViewController with saving data
-//    @IBAction func unwindSegueWithData(segue: UIStoryboardSegue) {
-//        toggleActivityIndicator(on: true)
-//        guard let sourceViewController = segue.source as? SettingsViewController else { return }
-//        guard let svcUnits = sourceViewController.units else { return }
-//        units = svcUnits
-//
-//        guard let cityName = cityName, let country = country else { return }
-//        let cityAndCountryName = cityName + ", " + country
-//        manager.getWeatherData(city: cityAndCountryName, units: units ?? "metric")
-//        updateUI()
-//    }
-//
-//    // Unwind segue without data saving
-//    @IBAction func unwindSegueWithoutData(segue: UIStoryboardSegue) { }
 }
 
 

@@ -18,7 +18,6 @@ class SettingsViewController: UIViewController {
     @IBOutlet weak var chooseUnits: UISegmentedControl!
     @IBOutlet weak var temperatireInfoLabel: UILabel!
     @IBOutlet weak var windSpeedInfoLabel: UILabel!
-//    var units: String?
     
     let temperatureInCelsius = "Temperature will be displaying in ˚C"
     let temperatureInFahrenheit = "Temperature will be displaying in ˚F"
@@ -66,10 +65,4 @@ class SettingsViewController: UIViewController {
             print("Imperial")
         }
     }
-    
-//    @IBAction func saveChoosenUnits(_ sender: UIButton) {
-//        
-//        performSegue(withIdentifier: "unwindSegueWithData", sender: sender)
-//        
-//    }
 }
