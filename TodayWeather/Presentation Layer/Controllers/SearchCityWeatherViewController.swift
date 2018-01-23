@@ -38,19 +38,20 @@ class SearchCityWeatherViewController: UIViewController {
         
         print("search city now is: \(searchCity)")
         print("units now are: \(units)")
-        if searchCity == nil {
-            searchCity = defaultCity
-        }
+//        if searchCity == nil {
+//            searchCity = defaultCity
+//        }
         
-        manager.getSearchCityWeatherData(searchCity: searchCity, units: units ?? "metric")
+        manager.getSearchCityWeatherData(searchCity: searchCity ?? defaultCity, units: units ?? "metric")
         
         updateUI()
     }
     
     
     func changeLabelsAndImages() {
+        let searchCity = self.searchCity ?? userDefaults.string(forKey: "lastSearchCity")
         print("now search by: \(searchCity)!")
-        let searchCityWeather = realmDataManager.getSearchCityWeatherFromRealm(searchCityName: searchCity).value(at: 0)
+        let searchCityWeather = realmDataManager.getSearchCityWeatherFromRealm(searchCityName: searchCity ?? defaultCity).value(at: 0)
         print("weather is: \(searchCityWeather)")
         
         if units == "metric" || units == nil {
