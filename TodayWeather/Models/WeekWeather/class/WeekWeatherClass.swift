@@ -14,7 +14,7 @@ class WeekWeatherClass: Object {
     @objc dynamic var cityName = ""
     @objc dynamic var country = ""
     
-    var weekWeatherDetails: WeekWeatherDetails?
+    var weekWeatherDetails = List<WeekWeatherDetailsClass>()
     
     override static func primaryKey() -> String {
         return "cityName"

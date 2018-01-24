@@ -27,4 +27,16 @@ class RealmDataManager {
         return searchCityWeather
     }
     
+    func getWeekweatherFromRealm() -> Results<WeekWeatherClass> {
+        do {
+            let realm = try Realm()
+            let weekWeather = realm.objects(WeekWeatherClass.self)
+            
+            print("Here is weekWeather \(weekWeather)")
+            return weekWeather
+        } catch let error as NSError {
+            fatalError("Error opening realm: \(error)")
+        }
+    }
+    
 }

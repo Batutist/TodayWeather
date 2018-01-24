@@ -8,28 +8,34 @@
 
 import UIKit
 
-class WeekWeatherViewController: UIViewController {
+class WeekWeatherViewController: UIViewController{
+    let realmManager = RealmDataManager()
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+        print("This view is load")
+        DataManagerSingleton.shared.getWeekWeather(city: "Oslo", units: units)
+        
+        let results = realmManager.getWeekweatherFromRealm()
+        let filterResults = results.first?.weekWeatherDetails.filter("date contains '12:00:00'")
+        print("results: \(filterResults)")
     }
     
+    
 
-    /*
-    // MARK: - Navigation
+}
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+extension WeekWeatherViewController: UICollectionViewDataSource, UICollectionViewDelegate {
+    
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return 5
     }
-    */
-
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath) as! WeekWeatherCollectionViewCell
+        
+        return cell
+    }
+    
 }

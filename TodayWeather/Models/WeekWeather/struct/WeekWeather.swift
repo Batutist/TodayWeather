@@ -13,7 +13,27 @@ struct WeekWeather {
     var cityName = ""
     var country = ""
     
-    let weekWeatherDetails: WeekWeatherDetails?
+    let weekWeatherDetails = WeekWeatherDetails()
     
 }
+
+//extension WeekWeather: Persistable {
+//    
+//    public init(mangedObject: WeekWeatherClass) {
+//        cityName = mangedObject.cityName
+//        country = mangedObject.country
+//        weekWeatherDetails = mangedObject.weekWeatherDetails.flatmap(WeekWeatherDetails.init(mangedObject:))
+//    }
+//    public func toManagedObject() -> WeekWeatherClass {
+//        let weekWeather = WeekWeatherClass()
+//        
+//        weekWeather.cityName = cityName
+//        weekWeather.country = country
+//        weekWeather.weekWeatherDetails = weekWeatherDetails.managedObject()
+//        
+//        return weekWeather
+//    }
+//    
+//}
+
 
