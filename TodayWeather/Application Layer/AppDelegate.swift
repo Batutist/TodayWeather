@@ -11,8 +11,14 @@ import CoreData
 import RealmSwift
 
 
+
 let realm = try! Realm()
 let userDefaults  =  UserDefaults.standard
+var units = userDefaults.string(forKey: "units") ?? "metric" {
+    didSet {
+        print(units + "!!!")
+    }
+}
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
