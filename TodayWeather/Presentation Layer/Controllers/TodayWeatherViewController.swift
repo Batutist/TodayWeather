@@ -53,13 +53,13 @@ class TodayWeatherViewController: UIViewController, CLLocationManagerDelegate {
             print("load from here")
             // Get current coordiantes, parse them to location city & country name.
             // Load weather data by new location
-            getWeatherByCurrentLocation()
         } else {
             // get data from server and save to realm DB
             // функция получает данные с сервера и созраняет в БД
             print("first load")
             manager.getWeatherData(city: defaultCity, units: units)
         }
+        getWeatherByCurrentLocation()
         // realm notification watch for values, that change in DB
         // нотификация следит за изменениями в БД и выводит их в UI
         updateUI()
@@ -108,7 +108,7 @@ class TodayWeatherViewController: UIViewController, CLLocationManagerDelegate {
             switch changes {
             case .initial:
                 print("new")
-                self?.changeUILabels()
+//                self?.changeUILabels()
             case .update(_, _, _, _):
                 self?.changeUILabels()
                 print("update")
@@ -224,7 +224,7 @@ class TodayWeatherViewController: UIViewController, CLLocationManagerDelegate {
     @IBAction func refreshButtonTapped(_ sender: UIButton) {
         // when user tapp on refresh button, activity indicator switch on and get new weather data from server. And then update UI.
         toggleActivityIndicator(on: true)
-        let cityAndCountryName = cityName! + ", " + country!
+        let cityAndCountryName = (cityName ?? "Taganrog") + ", " + (country ?? "RU")
         manager.getWeatherData(city: cityAndCountryName, units: units)
         getWeatherByCurrentLocation()
         updateUI()
