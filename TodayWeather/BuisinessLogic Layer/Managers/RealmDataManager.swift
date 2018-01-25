@@ -27,4 +27,12 @@ class RealmDataManager {
         return searchCityWeather
     }
     
+    func getWeekweatherFromRealm(for city: String) -> Results<WeekWeatherClass> {
+        
+        let weekWeather = realm.objects(WeekWeatherClass.self).filter("cityName == %@", city)
+        print("Here is weekWeather \(weekWeather)")
+        return weekWeather
+    }
+    
+
 }
