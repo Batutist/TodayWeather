@@ -131,7 +131,7 @@ final class DataManagerSingleton {
                     
                     weekWeather.weekWeatherDetails.append(tmp)
                 }
-                print(weekWeather)
+//                print(weekWeather)
                 do {
                     try realm.write {
                         realm.add(weekWeather, update: true)

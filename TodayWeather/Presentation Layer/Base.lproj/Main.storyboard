@@ -327,10 +327,10 @@
                                         <connections>
                                             <outlet property="dateLabel" destination="cJa-gE-P9r" id="20f-lK-hOr"/>
                                             <outlet property="dayOfTheWeekLabel" destination="dCT-Ew-JMi" id="oqk-em-3LL"/>
-                                            <outlet property="dayWeatherIcon" destination="SeW-MV-HQ1" id="wo0-LK-hGo"/>
-                                            <outlet property="dayWeatherTemperature" destination="50U-zn-ScK" id="E0L-o9-ugz"/>
-                                            <outlet property="nightWeatherDescription" destination="vQn-T4-dvJ" id="snk-Qh-Buc"/>
-                                            <outlet property="nightWeathertemperature" destination="Xk7-zx-1Fq" id="jtr-cf-L2k"/>
+                                            <outlet property="weatherDescription" destination="vQn-T4-dvJ" id="snk-Qh-Buc"/>
+                                            <outlet property="weatherIcon" destination="SeW-MV-HQ1" id="wo0-LK-hGo"/>
+                                            <outlet property="weatherTemperatureMax" destination="50U-zn-ScK" id="E0L-o9-ugz"/>
+                                            <outlet property="weathertemperatureMin" destination="Xk7-zx-1Fq" id="jtr-cf-L2k"/>
                                             <outlet property="windDirectionLabel" destination="dyl-te-uI5" id="gav-js-qSe"/>
                                             <outlet property="windSpeedLabel" destination="QeL-AZ-gKf" id="A8o-ZQ-ej3"/>
                                         </connections>
@@ -368,6 +368,10 @@
                         </userDefinedRuntimeAttributes>
                     </view>
                     <tabBarItem key="tabBarItem" title="Week weather" id="Qqf-Xq-AT3"/>
+                    <connections>
+                        <outlet property="cityNameLabel" destination="HHL-2q-7Cm" id="qcy-zG-h66"/>
+                        <outlet property="collectionView" destination="V82-FH-VYJ" id="D43-qO-Bxw"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="w4i-Ah-TXK" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

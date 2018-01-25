@@ -26,3 +26,65 @@ class WeekWeatherDetailsClass: Object {
         return "date"
     }
 }
+
+extension WeekWeatherDetailsClass {
+    
+    var dateString: String {
+        let dateFormatter = DateFormatter()
+        let date = Date(timeIntervalSince1970: forecastedTime)
+        dateFormatter.dateFormat = "dd.MM"
+        return dateFormatter.string(from: date as Date)
+    }
+    
+    var humidityString: String {
+        return "\(humidity)%"
+    }
+    
+    var pressureString: String {
+        return "\(pressure)mb"
+    }
+    
+    var temperatureMaxString: String {
+        return "\(temperatureMax)˚"
+    }
+    var temperatureMinString: String {
+        return "\(temperatureMin)˚"
+    }
+    var windSpeedString: String {
+        return "\(windSpeed)m/s"
+    }
+    
+    
+    static func dayOfWeek(forecastedTime: Double) -> Int {
+        
+        let date = Date(timeIntervalSince1970: forecastedTime)
+        
+        let gregorian : NSCalendar = NSCalendar(calendarIdentifier: NSCalendar.Identifier.gregorian)!
+        let weekdayComponent : NSDateComponents = gregorian.components(.weekday, from: date as Date) as NSDateComponents
+        
+        let currentDay = weekdayComponent.weekday - 1 //адаптируем календарь под отечественный
+        return currentDay
+    }
+    
+    var dayOfWeek: String {
+        var dayOfWeekString = ""
+        if WeekWeatherDetailsClass.dayOfWeek(forecastedTime: forecastedTime) == 1 {
+            dayOfWeekString = ("Mon")
+        } else if WeekWeatherDetailsClass.dayOfWeek(forecastedTime: forecastedTime) == 2 {
+            dayOfWeekString = ("Tue")
+        } else if WeekWeatherDetailsClass.dayOfWeek(forecastedTime: forecastedTime) == 3 {
+            dayOfWeekString = ("Wed")
+        } else if WeekWeatherDetailsClass.dayOfWeek(forecastedTime: forecastedTime) == 4 {
+            dayOfWeekString = ("Thu")
+        } else if WeekWeatherDetailsClass.dayOfWeek(forecastedTime: forecastedTime) == 5 {
+            dayOfWeekString = ("Fri")
+        } else if WeekWeatherDetailsClass.dayOfWeek(forecastedTime: forecastedTime) == 6 {
+            dayOfWeekString = ("Sat")
+        } else {
+            dayOfWeekString = ("Sun")
+        }
+        
+        return dayOfWeekString
+    }
+    
+}
