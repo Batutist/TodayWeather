@@ -9,12 +9,12 @@
 import Foundation
 import CoreLocation
 
-protocol LocationUpdateProtocol {
-    func locationDidUpdateToLocation(location : CLLocation)
-}
+//protocol LocationUpdateProtocol {
+//    func locationDidUpdateToLocation(location : CLLocation)
+//}
 
 /// Notification on update of location. UserInfo contains CLLocation for key "location"
-let kLocationDidChangeNotification = "LocationDidChangeNotification"
+//let kLocationDidChangeNotification = "LocationDidChangeNotification"
 
 var currentCityName: String?
 var currentCountry: String?
@@ -23,12 +23,12 @@ class UserLocationManager: NSObject, CLLocationManagerDelegate {
     
     static let SharedManager = UserLocationManager()
     fileprivate var LocationManager = CLLocationManager()
-    var delegate : LocationUpdateProtocol!
+//    var delegate : LocationUpdateProtocol!
     
     private let geocoder = CLGeocoder()
     private var placemark: CLPlacemark?
     
-    var currentLocation : CLLocation?
+    private var currentLocation : CLLocation?
     
 
     lazy var manager = DataManagerSingleton.shared
@@ -94,7 +94,7 @@ class UserLocationManager: NSObject, CLLocationManagerDelegate {
     }
     
     // Get city and county name from coordinates
-    func parsePlacemarks() {
+    private func parsePlacemarks() {
         // Check if location manager is not nil
         if let _ = currentLocation {
             // Unwrap the placemark
@@ -122,13 +122,13 @@ class UserLocationManager: NSObject, CLLocationManagerDelegate {
     
     // MARK: - CLLocationManagerDelegate
     
-    func locationManager(manager: CLLocationManager, didUpdateToLocation newLocation: CLLocation, fromLocation oldLocation: CLLocation) {
-        currentLocation = newLocation
-        let userInfo : NSDictionary = ["location" : currentLocation!]
-        
-        DispatchQueue.main.async() { () -> Void in
-            self.delegate.locationDidUpdateToLocation(location: self.currentLocation!)
-            NotificationCenter.default.post(name: NSNotification.Name(kLocationDidChangeNotification), object: self, userInfo: userInfo as [NSObject: AnyObject])
-        }
-    }
+//    func locationManager(manager: CLLocationManager, didUpdateToLocation newLocation: CLLocation, fromLocation oldLocation: CLLocation) {
+//        currentLocation = newLocation
+//        let userInfo : NSDictionary = ["location" : currentLocation!]
+//
+//        DispatchQueue.main.async() { () -> Void in
+//            self.delegate.locationDidUpdateToLocation(location: self.currentLocation!)
+//            NotificationCenter.default.post(name: NSNotification.Name(kLocationDidChangeNotification), object: self, userInfo: userInfo as [NSObject: AnyObject])
+//        }
+//    }
 }
