@@ -10,16 +10,8 @@ import UIKit
 import RealmSwift
 import CoreLocation
 
-class TodayWeatherViewController: UIViewController, CLLocationManagerDelegate, LocationUpdateProtocol {
+class TodayWeatherViewController: UIViewController, CLLocationManagerDelegate {
     var notificationToken: NotificationToken? = nil
-    
-    let locationManager = CLLocationManager()
-    var currentLocation: CLLocation?
-    var latitude: Double = 0
-    var longitude: Double = 0
-    
-    let geocoder = CLGeocoder()
-    var placemark: CLPlacemark?
     
     @IBOutlet weak var cityNameLabel: UILabel!
     @IBOutlet weak var weatherIcon: UIImageView!
@@ -34,65 +26,25 @@ class TodayWeatherViewController: UIViewController, CLLocationManagerDelegate, L
     @IBOutlet weak var refreshButton: UIButton!
     
     var defaultCity = "Taganrog"
-    var cityName: String?
-    var country: String?
-    //    var units = userDefaults.string(forKey: "units")
     
     lazy var manager = DataManagerSingleton.shared
-    lazy var currentWeather = CurrentWeather()
+//    lazy var currentWeather = CurrentWeather()
     lazy var realmDataManager = RealmDataManager()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        // Location manager singleton
         let LocationManager = UserLocationManager.SharedManager
-        NotificationCenter.default.addObserver(self, selector: #selector(locationUpdateNotification(_:)), name: NSNotification.Name(rawValue: kLocationDidChangeNotification), object: nil)
         
-        LocationManager.delegate = self
-        
-        
-        // Get users permission for work with his location
-//        locationManager.requestWhenInUseAuthorization()
         toggleActivityIndicator(on: true)
-        // If userDefault for "Load" == false load data for deafault city.
-        // Else load data for city which is determined from the coordinates
-//        if userDefaults.bool(forKey: "Load") {
-            print("load from here")
-//            // Get current coordiantes, parse them to location city & country name.
-//            // Load weather data by new location
-////            manager.getWeatherData(city: currentCityName!, units: units)
-//        } else {
-//            // get data from server and save to realm DB
-//            // функция получает данные с сервера и созраняет в БД
-//            print("first load")
-            manager.getWeatherData(city: currentCityName ?? defaultCity, units: units)
-//        }
-//        getWeatherByCurrentLocation()
+        print("load from here")
+        // Get current coordiantes, parse them to location city & country name.
+        // Load weather data by new location
+        manager.getWeatherData(city: currentCityName ?? defaultCity, units: units)
         // realm notification watch for values, that change in DB
         // нотификация следит за изменениями в БД и выводит их в UI
         updateUI()
     }
-    
-    // MARK: - Notifications
-    
-    @objc func locationUpdateNotification(_ notification: Notification) {
-        let userinfo = notification.userInfo
-        currentLocation = userinfo!["location"] as? CLLocation
-        guard let currentLocation = currentLocation else { return }
-        print("Latitude : \(currentLocation.coordinate.latitude)")
-        print("Longitude : \(currentLocation.coordinate.longitude)")
-
-    }
-    
-    // MARK: - LocationUpdateProtocol
-    
-    func locationDidUpdateToLocation(location: CLLocation) {
-        currentLocation = location
-        guard let currentLocation = currentLocation else { return }
-        print("Latitude : \(currentLocation.coordinate.latitude)")
-        print("Longitude : \(currentLocation.coordinate.longitude)")
-    }
-    
-    
     
     
     deinit {
@@ -105,11 +57,8 @@ class TodayWeatherViewController: UIViewController, CLLocationManagerDelegate, L
         // get current weather from DB
         let currentWeather = realmDataManager.getCurrentWeatherFromRealm(cityName: cityName).value(at: 0)
         print("Текущая погода: \(currentWeather)")
-        // deactivate activity indicator when all data received
-        // прячем activity indicator когда все все данные получены
-        toggleActivityIndicator(on: false)
         
-        if units == "metric" || units == nil {
+        if units == "metric" {
             temperatureLabel.text = currentWeather.temperatureMetricString
             temperatureMinLabel.text = currentWeather.cityTemperatureMinMetricString
             temperatureMaxLabel.text = currentWeather.cityTemperatureMaxMetricString
@@ -128,6 +77,9 @@ class TodayWeatherViewController: UIViewController, CLLocationManagerDelegate, L
         pressureLabel.text = currentWeather.cityPressureString
         humidityLabel.text = currentWeather.cityHumidityString
         
+        // deactivate activity indicator when all data received
+        // прячем activity indicator когда все все данные получены
+        toggleActivityIndicator(on: false)
     }
     // realm notification
     func updateUI() {
@@ -138,7 +90,6 @@ class TodayWeatherViewController: UIViewController, CLLocationManagerDelegate, L
             switch changes {
             case .initial:
                 print("new")
-            //                self?.changeUILabels()
             case .update(_, _, _, _):
                 self?.changeUILabels()
                 print("update")
@@ -148,94 +99,6 @@ class TodayWeatherViewController: UIViewController, CLLocationManagerDelegate, L
             }
         }
     }
-    
-    
-    
-//    // MARK: Location manager methods
-//    // get current location coordinates
-//    func getWeatherByCurrentLocation() {
-//        guard CLLocationManager.locationServicesEnabled() == true else {
-//            print("Location services are disabled on your device. In order to use this app, go to " +
-//                "Settings → Privacy → Location Services and turn location services on.")
-//            return
-//        }
-//        let authStatus = CLLocationManager.authorizationStatus()
-//
-//        guard authStatus == .authorizedWhenInUse else {
-//            switch authStatus {
-//            case .denied, .restricted:
-//                print("This app is not authorized to use your location. In order to use this app, " +
-//                    "go to Settings → GeoExample → Location and select the \"While Using " +
-//                    "the App\" setting.")
-//            case .notDetermined:
-//                locationManager.requestWhenInUseAuthorization()
-//            default:
-//                print("Oops! Shouldn't have come this far.")
-//            }
-//            return
-//        }
-//        locationManager.delegate = self
-//        locationManager.desiredAccuracy = kCLLocationAccuracyBest
-//
-//        if CLLocationManager.locationServicesEnabled() {
-//            locationManager.startUpdatingLocation()
-//        }
-//    }
-//
-//    // This method is called if:
-//    // - the location manager is updating, and
-//    // - it was able to get the user's location.
-//    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-//        // Get the last user location
-//        let lastLocation: CLLocation = locations.last!
-//
-//        // if it location is nil or it has been moved
-//        if currentLocation == nil || currentLocation!.horizontalAccuracy > lastLocation.horizontalAccuracy {
-//
-//            currentLocation = lastLocation
-//            print("lat is:\(currentLocation?.coordinate.latitude) lon is:\(currentLocation?.coordinate.longitude)")
-//
-//            // Stop updating location
-//            locationManager.stopUpdatingLocation()
-//
-//            geocoder.reverseGeocodeLocation(lastLocation, completionHandler: { (placemarks, error) in
-//                if error == nil, let placemark = placemarks, !placemark.isEmpty {
-//                    self.placemark = placemark.last
-//                }
-//                // Get city and county name from coordinates
-//                self.parsePlacemarks()
-//            })
-//        }
-//    }
-//
-//    // Get city and county name from coordinates
-//    func parsePlacemarks() {
-//        // Check if location manager is not nil
-//        if let _ = currentLocation {
-//            // Unwrap the placemark
-//            if let placemark = placemark {
-//                // Unwrap the locality
-//                if let cityName = placemark.locality, !cityName.isEmpty, let countryShortName = placemark.isoCountryCode, !countryShortName.isEmpty {
-//                    // assign city name to our iVar
-//                    self.cityName = cityName.folding(options: .diacriticInsensitive, locale: .current)
-//                    self.country = countryShortName
-//                    let cityAndCountryName = cityName + ", " + countryShortName
-//                    // Get weather data by new location
-//                    manager.getWeatherData(city: cityAndCountryName, units: units)
-//                }
-//                print("current location city is: \(cityName) & country: \(country)")
-//            }
-//        } else {
-//            // add some more check's if for some reason location manager is nil
-//        }
-//    }
-//
-//    // This is called if:
-//    // - the location manager is updating, and
-//    // - it WASN'T able to get the user's location.
-//    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-//        print("Error: \(error)")
-//    }
     
     // State of activity indicator
     func toggleActivityIndicator(on: Bool) {
@@ -256,7 +119,7 @@ class TodayWeatherViewController: UIViewController, CLLocationManagerDelegate, L
         toggleActivityIndicator(on: true)
         let cityAndCountryName = (currentCityName ?? "Taganrog") + ", " + (currentCountry ?? "RU")
         manager.getWeatherData(city: cityAndCountryName, units: units)
-//        getWeatherByCurrentLocation()
+        
         updateUI()
     }
 }
