@@ -33,6 +33,4 @@ class RealmDataManager {
         print("Here is weekWeather \(weekWeather)")
         return weekWeather
     }
-    
-
 }
