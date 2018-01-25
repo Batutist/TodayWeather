@@ -55,7 +55,7 @@ extension WeekWeatherDetailsClass {
     }
     
     
-    static func dayOfWeek(forecastedTime: Double) -> Int {
+    static private func dayOfWeekFunc(forecastedTime: Double) -> Int {
         
         let date = Date(timeIntervalSince1970: forecastedTime)
         
@@ -66,25 +66,68 @@ extension WeekWeatherDetailsClass {
         return currentDay
     }
     
+    
     var dayOfWeek: String {
-        var dayOfWeekString = ""
-        if WeekWeatherDetailsClass.dayOfWeek(forecastedTime: forecastedTime) == 1 {
-            dayOfWeekString = ("Mon")
-        } else if WeekWeatherDetailsClass.dayOfWeek(forecastedTime: forecastedTime) == 2 {
-            dayOfWeekString = ("Tue")
-        } else if WeekWeatherDetailsClass.dayOfWeek(forecastedTime: forecastedTime) == 3 {
-            dayOfWeekString = ("Wed")
-        } else if WeekWeatherDetailsClass.dayOfWeek(forecastedTime: forecastedTime) == 4 {
-            dayOfWeekString = ("Thu")
-        } else if WeekWeatherDetailsClass.dayOfWeek(forecastedTime: forecastedTime) == 5 {
-            dayOfWeekString = ("Fri")
-        } else if WeekWeatherDetailsClass.dayOfWeek(forecastedTime: forecastedTime) == 6 {
-            dayOfWeekString = ("Sat")
-        } else {
-            dayOfWeekString = ("Sun")
+        let dayNumber = WeekWeatherDetailsClass.dayOfWeekFunc(forecastedTime: forecastedTime)
+        switch dayNumber {
+        case 1:
+            return "Mon"
+        case 2:
+            return "Tue"
+        case 3:
+            return "Wed"
+        case 4:
+            return "Thu"
+        case 5:
+            return "Fri"
+        case 6:
+            return "Sat"
+        case 0:
+            return "Sun"
+        default:
+            print("Can't get day of the week")
+            return "Nil"
         }
-        
-        return dayOfWeekString
     }
     
+    var windDegreesString: String {
+        switch windDegrees {
+        case 0 ..< 11.25:
+            return "N"
+        case 11.25 ..< 33.75:
+            return "NNE"
+        case 33.75 ..< 56.25:
+            return "NE"
+        case 56.25 ..< 78.75:
+            return "ENE"
+        case 78.75 ..< 101.25:
+            return "E"
+        case 10.25 ..< 123.75:
+            return "ESE"
+        case 123.75 ..< 146.25:
+            return "SE"
+        case 146.25 ..< 168.75:
+            return "SSE"
+        case 168.75 ..< 191.25:
+            return "S"
+        case 191.25 ..< 213.75:
+            return "SSW"
+        case 213.75 ..< 236.25:
+            return "SW"
+        case 236.25 ..< 258.75:
+            return "WSW"
+        case 258.75 ..< 281.25:
+            return "W"
+        case 281.25 ..< 303.75:
+            return "WNW"
+        case 303.75 ..< 326.25:
+            return "NW"
+        case 326.25 ..< 348.75:
+            return "NWN"
+        case 348.75 ..< 359.99:
+            return "N"
+        default:
+            return "nil"
+        }
+    }
 }

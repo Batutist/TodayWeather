@@ -13,7 +13,7 @@ struct WeekWeather {
     var cityName = ""
     var country = ""
     
-    let weekWeatherDetails = WeekWeatherDetails()
+    var weekWeatherDetails = [WeekWeatherDetails()]
     
 }
 

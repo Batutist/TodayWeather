@@ -28,15 +28,11 @@ class RealmDataManager {
     }
     
     func getWeekweatherFromRealm(for city: String) -> Results<WeekWeatherClass> {
-        do {
-            let realm = try Realm()
-            let weekWeather = realm.objects(WeekWeatherClass.self).filter("cityName == %@", city)
-            
-            print("Here is weekWeather \(weekWeather)")
-            return weekWeather
-        } catch let error as NSError {
-            fatalError("Error opening realm: \(error)")
-        }
+        
+        let weekWeather = realm.objects(WeekWeatherClass.self).filter("cityName == %@", city)
+        print("Here is weekWeather \(weekWeather)")
+        return weekWeather
     }
     
+
 }

@@ -22,3 +22,4 @@ struct WeekWeatherDetails {
     var pressure = 0.0
     
 }
+

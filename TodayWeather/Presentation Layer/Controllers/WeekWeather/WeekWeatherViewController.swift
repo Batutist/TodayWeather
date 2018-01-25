@@ -61,24 +61,55 @@ class WeekWeatherViewController: UIViewController {
         weekWeatherModel.country = results.country
         
         if checkOutDates(timeIntervalSince1970: forecastedTime) {
+            for value in weekWeatherNoon {
+                let tmp = WeekWeatherDetailsClass()
+
+                tmp.date = value.date
+                tmp.forecastedTime = value.forecastedTime
+                tmp.humidity = value.humidity
+                tmp.pressure = value.pressure
+                tmp.temperatureMax = value.temperatureMax
+                tmp.temperatureMin = value.temperatureMin
+                tmp.weatherDescription = value.weatherDescription
+                tmp.weatherIcon = value.weatherIcon
+                tmp.windDegrees = value.windDegrees
+                tmp.windSpeed = value.windSpeed
+
+                weekWeatherModel.weekWeatherDetails.append(tmp)
+            }
+        } else {
+            guard let firstDayweather = results.weekWeatherDetails.first else { return }
             
-        }
-        
-        for value in weekWeatherNoon {
             let tmp = WeekWeatherDetailsClass()
             
-            tmp.date = value.date
-            tmp.forecastedTime = value.forecastedTime
-            tmp.humidity = value.humidity
-            tmp.pressure = value.pressure
-            tmp.temperatureMax = value.temperatureMax
-            tmp.temperatureMin = value.temperatureMin
-            tmp.weatherDescription = value.weatherDescription
-            tmp.weatherIcon = value.weatherIcon
-            tmp.windDegrees = value.windDegrees
-            tmp.windSpeed = value.windSpeed
+            tmp.date = firstDayweather.date
+            tmp.forecastedTime = firstDayweather.forecastedTime
+            tmp.humidity = firstDayweather.humidity
+            tmp.pressure = firstDayweather.pressure
+            tmp.temperatureMax = firstDayweather.temperatureMax
+            tmp.temperatureMin = firstDayweather.temperatureMin
+            tmp.weatherDescription = firstDayweather.weatherDescription
+            tmp.weatherIcon = firstDayweather.weatherIcon
+            tmp.windDegrees = firstDayweather.windDegrees
+            tmp.windSpeed = firstDayweather.windSpeed
             
             weekWeatherModel.weekWeatherDetails.append(tmp)
+            for value in weekWeatherNoon {
+                let tmp = WeekWeatherDetailsClass()
+                
+                tmp.date = value.date
+                tmp.forecastedTime = value.forecastedTime
+                tmp.humidity = value.humidity
+                tmp.pressure = value.pressure
+                tmp.temperatureMax = value.temperatureMax
+                tmp.temperatureMin = value.temperatureMin
+                tmp.weatherDescription = value.weatherDescription
+                tmp.weatherIcon = value.weatherIcon
+                tmp.windDegrees = value.windDegrees
+                tmp.windSpeed = value.windSpeed
+                
+                weekWeatherModel.weekWeatherDetails.append(tmp)
+            }
         }
     }
     
@@ -93,7 +124,7 @@ class WeekWeatherViewController: UIViewController {
         cell.weatherIcon.image = UIImage(named: weekWeatherModel.weekWeatherDetails[indexPath.row].weatherIcon)
         cell.weatherTemperatureMax.text = weekWeatherModel.weekWeatherDetails[indexPath.row].temperatureMaxString
         cell.weathertemperatureMin.text = weekWeatherModel.weekWeatherDetails[indexPath.row].temperatureMinString
-        cell.windDirectionLabel.text = String(weekWeatherModel.weekWeatherDetails[indexPath.row].windDegrees)
+        cell.windDirectionLabel.text = String(weekWeatherModel.weekWeatherDetails[indexPath.row].windDegreesString)
         cell.windSpeedLabel.text = weekWeatherModel.weekWeatherDetails[indexPath.row].windSpeedString
     }
     

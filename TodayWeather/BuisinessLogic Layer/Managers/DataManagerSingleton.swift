@@ -107,7 +107,7 @@ final class DataManagerSingleton {
         let param = ["q": city, "units": units, "appid": "0d56898a0da8944be0e2dff08367ac8c"]
         
         let weekWeather = WeekWeatherClass()
-        Alamofire.request(url, method: .get, parameters: param).validate().responseJSON { (response) in
+        Alamofire.request(url, method: .get, parameters: param).validate().responseJSON {[weak self] (response) in
             switch response.result {
             case .success(let value):
                 let json = JSON(value)
@@ -135,6 +135,7 @@ final class DataManagerSingleton {
                 do {
                     try realm.write {
                         realm.add(weekWeather, update: true)
+                        self?.deleteOld()
                     }
                     print("week weather write")
                 } catch {
@@ -145,6 +146,17 @@ final class DataManagerSingleton {
                 print(error.localizedDescription)
             }
         }
+    }
+    private func deleteOld() {
+        let dateFormatter = DateFormatter()
+        var today: String {
+            dateFormatter.dateFormat = "yyyy-MM-dd hh:mm:ss"
+            let today = NSDate()
+            return dateFormatter.string(from: today as Date)
+        }
+        let yesterday = Date().timeIntervalSince1970 - (24*60*60)
+        guard let itemsToDelete = realm.objects(WeekWeatherClass.self).first?.weekWeatherDetails.filter("forecastedTime < %@", yesterday) else { return }
+        realm.delete(itemsToDelete)
     }
 }
 
